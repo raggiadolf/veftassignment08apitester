@@ -51,6 +51,10 @@ def insertCompany(url, payload):
 	assert getc_r.status_code == 200, "Does not return 200 after querying for a valid company from /api/companies/:company_id"
 	print "Responds correctly with 200 after querying for a valid company from /api/companies/" + ok_r.json()['company_id']
 
+	assert 'name' in getc_r.json()[0], "Response object from /api/companies/ does not include 'name'"
+	assert 'description' in getc_r.json()[0], "Response object from /api/companies/ does not include 'description'"
+	assert 'punchcard_lifetime' in getc_r.json()[0], "Response object from /api/companies/ does not include 'punchcard_lifetime'"
+
 	cname = getc_r.json()[0]['name']
 	cdescr = getc_r.json()[0]['description']
 	cpl = getc_r.json()[0]['punchcard_lifetime']
@@ -81,11 +85,13 @@ def checkPunchcard(url):
 	assert bad_r_samep.status_code == 409, "Does not return 409 if the same punchcard is posted twice using /punchcard/" + url.rpartition('/')[2]
 	print "Responds correctly with 409 if the same punchcard is posted twice using /punchcard/:company_id"
 
+def checkUsers(url):
+	r = requests.get(url)
+	assert 'token' not in r.json()[0], "Response from /user includes a token, which it should not do"
+	print "Responds correctly without a token when requesting users from /user"
+
 checkEmptyCompanyDocument(url + '/api/companies')
 companyID = insertCompany(url + '/api/companies', haskolabudin)
 checkCompanyDocumentWithOneDocument(url + '/api/companies')
+checkUsers(url + '/user')
 checkPunchcard(url + '/punchcard/' + companyID['company_id'])
-
-
-
-
