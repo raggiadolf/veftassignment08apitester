@@ -22,3 +22,8 @@ First parameter(4000) is the port the server is listening on
 Second parameter(admintoken) is the ADMIN_TOKEN hardcoded into the api
 
 Third parameter(test) is the token of a user in the databse
+
+##Easy mode Run
+Use '**sh testscript.sh portno admintoken**', where portno is the port the api is listening on and admintoken is the hardcoded ADMIN_TOKEN. (You might need to '**chmod -x testscript.sh**' to make it executable).
+
+This handles dropping the database, inserting a user with token 'test' and then starting the tester with the correct parameters.
