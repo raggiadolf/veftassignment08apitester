@@ -47,7 +47,7 @@ def insertCompany(url, payload):
 		print "Responds correctly with 401 when posting to /api/companies without proper authentication"
 
 	badCompany = {'name' : 'teogkaffi', 'description' : 'teogkaffi'}
-	bad_r_pre = requests.post(url, json=badCompany)
+	bad_r_pre = requests.post(url, json=badCompany, headers=token)
 	if bad_r_pre.status_code != 412:
 		print "ERROR: Does not return 412 when payload is invalid using /api/companies, returns: " + str(bad_r_pre.status_code)
 	else:
