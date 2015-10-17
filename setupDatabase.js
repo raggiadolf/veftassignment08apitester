@@ -1,3 +1,3 @@
 use app
 db.dropDatabase()
-db.users.insert({'token' : 'test'})
+db.users.insert({'name' : 'tester', 'token' : 'test', 'age' : 20, 'gender' : 'o'})
